@@ -7,39 +7,21 @@ services:
 
   radium:
     restart: always
-    build: ./radium
+    build: ./project
     command: python radium/radium.py
     volumes:
-      - ./radium/:/radium/
+      - ./radium/:/radium.py/
     ports:
       - "8000:8000"
-#    env_file:
-#      - webapp/src/.env
     depends_on:
-#      - db
       - redis
 
-#  db:
+#  worker:
 #    restart: always
-#    image: postgres:15.0
+#    build:
+#      context: ./project
 #    volumes:
-#      - postgres_data:/var/lib/postgresql/data/
-#    env_file:
-#      - webapp/src/.env
+#      - ./radium:/radium
+#    command: ['celery', '--workdir=./radium', '-A', 'radium', 'worker', '-B', '-E']
 #    depends_on:
 #      - redis
-
-  worker:
-    restart: always
-    build:
-      context: ./project
-    volumes:
-      - ./radium:/radium
-    command: ['celery', '--workdir=./radium', '-A', 'radium', 'worker', '-B', '-E']
-    depends_on:
-#      - db
-      - redis
-
-#
-#volumes:
-#  postgres_data:
