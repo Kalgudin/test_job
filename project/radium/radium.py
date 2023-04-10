@@ -1,13 +1,10 @@
 import os
 import threading
 
-print('RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR')
 def get_repository(name):
     print(f'поток {name} стартовал')
     url = 'https://gitea.radium.group/radium/project-configuration.git'
-    os.system(f'git clone {url}')
-    # os.system(f'cd template')
-    os.system('git pull')
+    os.system(f'git clone {url} {name}')
     print(f'поток {name} отработал')
 
 
